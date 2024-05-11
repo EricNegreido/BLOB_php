@@ -16,18 +16,28 @@
 <?php 
   require("conexion.php");
 
+  $tipo_archivo ="";
+  $id_archivo="";
+  $contenido_archivo="";
+  $nombre_archivo="";
+
   $db = new Connect();
   mysqli_set_charset($db->connection(), "utf8");
   
-  $result = mysqli_query($db->connection(),"SELECT img FROM datos_usuarios WHERE nombre='antonio'");
+  $result = mysqli_query($db->connection(),"SELECT * FROM datos_extras");
 
   while($row = mysqli_fetch_array($result)){
-    $dir_img = $row["img"];
+    $id_archivo= $row["id"];
+    $nombre_archivo= $row["nombre"];
+    $contenido_archivo=$row["contenido"];
+    $tipo_archivo=$row["tipo"];
+    echo "id: " . $id_archivo . "<br>";
+    echo "Nombre: " . $nombre_archivo . "<br>";
+    echo "Tipo: " . $tipo_archivo . "<br>";
+    echo "<img src='data:$tipo_archivo; base64," . base64_encode($contenido_archivo) . "'>" . "<br>";
   }
-?>
 
-<div>
-  <img src="..\img\<?php echo $dir_img; ?>" alt="archivo">
-</div>
+  ?>
+
 </body>
 </html>
